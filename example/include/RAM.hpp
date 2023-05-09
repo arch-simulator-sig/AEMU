@@ -14,11 +14,13 @@ private:
     IFU *ifu;
 
 public:
+    bool io_ready();
+
+public:
     RAM() : RAM("ram"){};
     RAM(const char *name);
     ~RAM();
     void bind(IFU *ifu);
     void run();
     void reset();
-    void dump();
 };

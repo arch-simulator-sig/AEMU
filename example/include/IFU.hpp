@@ -1,8 +1,5 @@
 #pragma once
 #include "Module.hpp"
-#include "stdio.h"
-#include <vector>
-#include <string>
 
 using namespace AEMU;
 
@@ -28,8 +25,4 @@ public:
     void bind(RAM *ram);
     void run();
     void reset();
-#ifdef DUMP_WAVE_SUPPORT
-public:
-    void dump();
-#endif // DUMP_WAVE_SUPPORT
 };

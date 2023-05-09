@@ -20,10 +20,10 @@ endif ()
 set(CMAKE_CXX_FLAGS_PROFILE   "-O2 -pg -g -ftime-trace")
 set(CMAKE_CXX_FLAGS_FASTDEBUG "-O2 -g")
 
-file(GLOB_RECURSE SOURCES "src/*.cpp")
-include_directories(include)
+file(GLOB_RECURSE SOURCES "example/src/*.cpp" "AEMU/src/*.cpp")
+include_directories(example/include AEMU/include)
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 
-# target_link_options    (${PROJECT_NAME} PUBLIC -flto)
-# target_compile_options (${PROJECT_NAME} PUBLIC -flto)
+target_link_options    (${PROJECT_NAME} PUBLIC -flto)
+target_compile_options (${PROJECT_NAME} PUBLIC -flto)
