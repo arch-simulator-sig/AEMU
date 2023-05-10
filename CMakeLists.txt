@@ -20,10 +20,13 @@ endif ()
 set(CMAKE_CXX_FLAGS_PROFILE   "-O2 -pg -g -ftime-trace")
 set(CMAKE_CXX_FLAGS_FASTDEBUG "-O2 -g")
 
-file(GLOB_RECURSE SOURCES "example/src/*.cpp" "AEMU/src/*.cpp")
-include_directories(example/include AEMU/include)
-add_executable(${PROJECT_NAME} ${SOURCES})
+include_directories(AEMU/include)
+add_subdirectory(AEMU)
+# add_subdirectory(ysyx_cpu)
+add_subdirectory(example)
 
+
+target_link_libraries(${PROJECT_NAME}  AEMU_LIB)
 
 target_link_options    (${PROJECT_NAME} PUBLIC -flto)
 target_compile_options (${PROJECT_NAME} PUBLIC -flto)

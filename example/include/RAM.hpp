@@ -6,6 +6,11 @@ using namespace AEMU;
 typedef struct
 {
     uint32_t inst;
+    struct
+    {
+        bool ready;
+    } port;
+    
 } IO_RAM;
 class RAM : public Module, public Output<IO_RAM>
 {
@@ -14,13 +19,11 @@ private:
     IFU *ifu;
 
 public:
-    bool io_ready();
-
-public:
     RAM() : RAM("ram"){};
     RAM(const char *name);
     ~RAM();
     void bind(IFU *ifu);
     void run();
     void reset();
+    void update();
 };

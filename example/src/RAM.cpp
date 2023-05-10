@@ -13,8 +13,9 @@ void RAM::bind(IFU *ifu)
 void RAM::run()
 {
     p = getNextDataP();
+    auto data = getDataP();
     auto ifu_out = ifu->getData();
-    if (ifu_out.pc_valid && io_ready())
+    if (ifu_out.pc_valid && data->port.ready)
         p->inst = ifu_out.pc;
     else
         p->inst = 0;
@@ -25,7 +26,8 @@ void RAM::reset()
     setNextData(data);
 }
 
-bool RAM::io_ready()
+void RAM::update()
 {
-    return getCycle() % 4 == 0;
+    p = getDataP();
+    p->port.ready = getCycle() % 4 == 0;
 }

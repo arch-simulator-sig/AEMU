@@ -4,6 +4,6 @@
 namespace AEMU
 {
     void addModule(Module *module);
-    void reset();
-    void run(uint64_t cycles = 1);
+    void resetModules();
+    void runModules(uint64_t cycles = 1);
 }

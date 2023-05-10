@@ -10,24 +10,38 @@ namespace AEMU
         modules.push_back(module);
     }
 
-    void reset()
+    void updateModules()
     {
+        for (auto module : modules)
+        {
+            module->update();
+        }
+    }
+
+    void resetModules()
+    {
+        updateModules();
         for (auto module : modules)
         {
             module->reset();
         }
-        clock_inc();
+        clockInc();
     }
 
-    void run(uint64_t cycles)
+    /**
+     * @note 采用循环遍历会导致CPU分支预测难以进行，在需要仿真速度的场景下建议手动展开循环。
+    */
+    void runModules(uint64_t cycles)
     {
         while (cycles--)
         {
+            updateModules();
             for (auto module : modules)
             {
                 module->run();
             }
-            clock_inc();
+            clockInc();
         }
     }
+
 }

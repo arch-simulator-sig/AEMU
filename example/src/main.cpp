@@ -14,15 +14,19 @@ int main(int argc, char *argv[])
     addModule(ifu);
     addModule(ram);
 
-    reset();
+    resetModules();
     uint64_t cycle = 32ULL;
 
-    // run(cycle);
-    for (uint64_t i = 0; i < cycle; i++)
-    {
-        ifu->run();
-        ram->run();
-        clock_inc();
-    }
+    runModules(cycle);
+    
+    /* 手动展开循环可以获得更好的性能。 */
+    // for (uint64_t i = 0; i < cycle; i++)
+    // {
+    //     ifu->update();
+    //     ram->update();
+    //     ifu->run();
+    //     ram->run();
+    //     clockInc();
+    // }
     return 0;
 }

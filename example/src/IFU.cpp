@@ -17,9 +17,11 @@ void IFU::run()
     p = getNextDataP();
     /* 获取当前周期寄存器值 */
     auto data = getData();
+    /* 获取当前周期ram模块输出寄存器值 */
+    auto ram_out = ram->getData();
     /* 更新下周期寄存器值 */
     p->pc_valid = true;
-    if (ram->io_ready() && data.pc_valid)
+    if (ram_out.port.ready && data.pc_valid)
     {
         p->pc = data.pc + 4;
     }
@@ -27,8 +29,6 @@ void IFU::run()
     {
         p->pc = data.pc;
     }
-    /* 获取当前周期ram模块输出寄存器值 */
-    auto ram_out = ram->getData();
     /* 读取ram模块输出数据 */
     printf("cycle:\t%ld \tPC:0x%08x inst:0x%08x\n", getCycle(), data.pc, ram_out.inst);
 }

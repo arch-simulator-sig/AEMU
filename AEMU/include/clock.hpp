@@ -1,5 +1,5 @@
 #pragma once
 #include <cstdint>
 
-void clock_inc();
+void clockInc();
 uint64_t getCycle();
