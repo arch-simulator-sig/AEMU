@@ -25,4 +25,5 @@ public:
     void bind(RAM *ram);
     void run();
     void reset();
+    void trace();
 };

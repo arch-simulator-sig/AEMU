@@ -6,10 +6,8 @@ using namespace AEMU;
 typedef struct
 {
     uint32_t inst;
-    struct
-    {
-        bool ready;
-    } port;
+    bool ready;
+    
     
 } IO_RAM;
 class RAM : public Module, public Output<IO_RAM>
@@ -26,4 +24,5 @@ public:
     void run();
     void reset();
     void update();
+    void trace();
 };

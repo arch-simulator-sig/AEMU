@@ -1,9 +1,16 @@
 #include "IFU.hpp"
 #include "RAM.hpp"
 #include "common.hpp"
+#include "trace_vcd.hpp"
+
 IFU::IFU(const char *name)
 {
     this->name = name;
+    initSignalNames(2);
+    Trace::declareModuleBegin(name);
+    TRACE_VCD_DECLAR(0, pc, 32, "reg");
+    TRACE_VCD_DECLAR(1, pc_valid, 1, "reg");
+    Trace::declareModuleEnd();
 }
 IFU::~IFU() {}
 
@@ -21,7 +28,7 @@ void IFU::run()
     auto ram_out = ram->getData();
     /* 更新下周期寄存器值 */
     p->pc_valid = true;
-    if (ram_out.port.ready && data.pc_valid)
+    if (ram_out.ready && data.pc_valid)
     {
         p->pc = data.pc + 4;
     }
@@ -30,10 +37,16 @@ void IFU::run()
         p->pc = data.pc;
     }
     /* 读取ram模块输出数据 */
-    printf("cycle:\t%ld \tPC:0x%08x inst:0x%08x\n", getCycle(), data.pc, ram_out.inst);
+    // printf("cycle:\t%ld \tPC:0x%08x inst:0x%08x\n", getCycle(), data.pc, ram_out.inst);
 }
 void IFU::reset()
 {
     IO_IFU data = {.pc = 0x80000000, .pc_valid = true};
     setNextData(data);
+}
+void IFU::trace()
+{
+    TRACE_VCD_BEGIN();
+    TRACE_VCD_DUMPVALUE(0, pc, 32);
+    TRACE_VCD_DUMPVALUE(1, pc_valid, 1);
 }
