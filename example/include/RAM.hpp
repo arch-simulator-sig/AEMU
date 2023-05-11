@@ -25,4 +25,5 @@ public:
     void reset();
     void update();
     void trace();
+    void declare();
 };

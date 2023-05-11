@@ -4,14 +4,12 @@
 RAM::RAM(const char *name)
 {
     this->name = name;
-    initSignalNames(2);
-    Trace::declareModuleEnd();
-    Trace::declareModuleBegin(name);
-    TRACE_VCD_DECLAR(0, inst, 32, "reg");
-    TRACE_VCD_DECLAR(1, ready, 1, "wire");
-    Trace::declareModuleEnd();
+    declare();
 }
+
+
 RAM::~RAM() {}
+
 void RAM::bind(IFU *ifu)
 {
     this->ifu = ifu;
@@ -43,4 +41,11 @@ void RAM::trace()
     TRACE_VCD_BEGIN();
     TRACE_VCD_DUMPVALUE(0, inst, 32);
     TRACE_VCD_DUMPVALUE(1, ready, 1);
+}
+void RAM::declare()
+{
+    initSignalNames(2);
+    TRACE_VCD_INIT(name,
+               TRACE_VCD_DECLARE(0, inst, 32, reg);
+               TRACE_VCD_DECLARE(1, ready, 1, wire);)
 }

@@ -2,6 +2,8 @@
 #include <vector>
 #include "trace_vcd.hpp"
 
+
+
 namespace AEMU
 {
     std::vector<Module *> modules;
@@ -21,11 +23,13 @@ namespace AEMU
 
     void traceModules()
     {
+        #ifdef TRACE_VCD
         Trace::dumpTime(getCycle());
         for (auto module : modules)
         {
             module->trace();
         }
+        #endif 
     }
     void resetModules()
     {
@@ -36,6 +40,8 @@ namespace AEMU
             module->reset();
         }
         clockInc();
+        updateModules();
+        traceModules();
     }
 
     /**
@@ -45,15 +51,23 @@ namespace AEMU
     {
         while (cycles--)
         {
-            updateModules();
-            traceModules();
             for (auto module : modules)
             {
                 module->run();
             }
             clockInc();
+            updateModules();
+            traceModules();
+        }
+    }
+    void declareModules()
+    {
+        for (auto module : modules)
+        {
+            module->declare();
         }
     }
 
+   
 
 }

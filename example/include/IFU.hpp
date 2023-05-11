@@ -26,4 +26,5 @@ public:
     void run();
     void reset();
     void trace();
+    void declare();
 };

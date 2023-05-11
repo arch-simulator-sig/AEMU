@@ -6,11 +6,7 @@
 IFU::IFU(const char *name)
 {
     this->name = name;
-    initSignalNames(2);
-    Trace::declareModuleBegin(name);
-    TRACE_VCD_DECLAR(0, pc, 32, "reg");
-    TRACE_VCD_DECLAR(1, pc_valid, 1, "reg");
-    Trace::declareModuleEnd();
+    declare();
 }
 IFU::~IFU() {}
 
@@ -49,4 +45,11 @@ void IFU::trace()
     TRACE_VCD_BEGIN();
     TRACE_VCD_DUMPVALUE(0, pc, 32);
     TRACE_VCD_DUMPVALUE(1, pc_valid, 1);
+}
+void IFU::declare()
+{
+    initSignalNames(2);
+    TRACE_VCD_INIT(name,
+               TRACE_VCD_DECLARE(0, pc, 32, reg);
+               TRACE_VCD_DECLARE(1, pc_valid, 1, reg););
 }
