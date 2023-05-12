@@ -41,17 +41,6 @@ void MODULE_NAME::declare()
 #endif
 """
 
-
-# import sys
-# args = sys.argv
-# if len(args) == 3:
-#     module = args[1]
-#     header = args[2]
-# elif len(args) == 2:
-#     module = args[1]
-#     header = "Bundle.hpp"
-# else :
-#     print("must give 'module class name' and 'header file name only.")
 import argparse
 
 parser = argparse.ArgumentParser(description='Process some strings.')
