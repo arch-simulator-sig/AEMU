@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     addModule(ram);
 
     resetModules();
-    uint64_t cycle = 100ULL;
+    uint64_t cycle = 1000ULL;
 #ifdef SPEED_TEST
     auto now = std::chrono::system_clock::now();
     auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();

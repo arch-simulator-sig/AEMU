@@ -7,7 +7,6 @@ RAM::RAM(const char *name)
     declare();
 }
 
-
 RAM::~RAM() {}
 
 void RAM::bind(IFU *ifu)
@@ -34,18 +33,4 @@ void RAM::update()
 {
     p = getDataP();
     p->ready = getCycle() % 4 == 0;
-}
-
-void RAM::trace()
-{
-    TRACE_VCD_BEGIN();
-    TRACE_VCD_DUMPVALUE(0, inst, 32);
-    TRACE_VCD_DUMPVALUE(1, ready, 1);
-}
-void RAM::declare()
-{
-    initSignalNames(2);
-    TRACE_VCD_INIT(name,
-               TRACE_VCD_DECLARE(0, inst, 32, reg);
-               TRACE_VCD_DECLARE(1, ready, 1, wire);)
 }

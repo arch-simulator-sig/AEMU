@@ -1,14 +1,17 @@
 #pragma once
+#include "macro.h"
 #include "Module.hpp"
-
 using namespace AEMU;
 
 class RAM;
 
 typedef struct
 {
-    uint32_t pc;
-    bool pc_valid;
+#define _IFU 1
+#define IO_DECLARE(module, declare, name, type, width) IFONE(_##module, declare name; )
+#include "Bundle.hpp"
+#undef IO_DECLARE
+#undef _IFU
 } IO_IFU;
 
 class IFU : public Module, public Output<IO_IFU>

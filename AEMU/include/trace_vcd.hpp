@@ -7,7 +7,7 @@
 #define TRACE_VCD
 
 /* 默认波形保存周期上限 */
-#define TRACE_MAX_CYCLE 10000
+#define TRACE_MAX_CYCLE 100
 
 #ifdef TRACE_VCD
 /**
